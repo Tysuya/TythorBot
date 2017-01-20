@@ -15,8 +15,9 @@ jar {
     }
 }
 
-task stage(dependsOn: ['build', 'clean', 'run'])
-build.mustRunAfter run
+defaultTasks "clean", "build", "installApp"
+
+task stage(dependsOn: ['build'])
 
 task copyToLib(type: Copy) {
     into "$buildDir/lib"
