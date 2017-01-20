@@ -1,1 +1,1 @@
-web: ./build/install/app/bin/app
+web: java -jar out/artifacts/TythorBot/TythorBot.jar $PORT
