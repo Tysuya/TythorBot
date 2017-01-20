@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar /out/artifacts/TythorBot/TythorBot.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/TythorBot-1.0-SNAPSHOT.jar
