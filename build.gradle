@@ -8,14 +8,13 @@ mainClassName='tythor.TythorBot'
 
 sourceCompatibility = 1.8
 
+task stage(dependsOn: ['build', 'clean'])
 
 jar {
     manifest {
         attributes 'Main-Class': 'tythor.TythorBot'
     }
 }
-
-task stage(dependsOn: ['clean', 'installApp'])
 
 repositories {
     mavenCentral()
