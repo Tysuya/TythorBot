@@ -15,7 +15,7 @@ jar {
     }
 }
 
-task stage(dependsOn: ['build', 'clean'])
+task stage(dependsOn: ['build', 'clean', 'run'])
 build.mustRunAfter clean
 
 task copyToLib(type: Copy) {
