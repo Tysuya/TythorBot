@@ -16,7 +16,7 @@ jar {
 }
 
 task stage(dependsOn: ['build', 'clean', 'run'])
-build.mustRunAfter clean
+build.mustRunAfter run
 
 task copyToLib(type: Copy) {
     into "$buildDir/lib"
