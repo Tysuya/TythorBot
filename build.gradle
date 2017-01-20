@@ -15,16 +15,7 @@ jar {
     }
 }
 
-defaultTasks "clean", "build", "installApp", "stage", "copyToLib"
-
-task stage(dependsOn: ['build'])
-
-task copyToLib(type: Copy) {
-    into "$buildDir/lib"
-    from(configurations.compile)
-}
-
-stage.dependsOn(copyToLib)
+task stage(dependsOn: ['clean', 'installApp'])
 
 repositories {
     mavenCentral()
