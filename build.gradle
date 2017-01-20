@@ -15,7 +15,7 @@ jar {
     }
 }
 
-task stage(dependsOn: ['clean', 'installApp'])
+task stage(dependsOn: ['build'])
 
 repositories {
     mavenCentral()
