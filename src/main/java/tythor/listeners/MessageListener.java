@@ -30,14 +30,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.user.UserTypingEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import net.dv8tion.jda.core.managers.Presence;
-import tythor.TythorBot;
-import tythor.utils.CycleGames;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static tythor.commands.Fact.fact;
 import static tythor.commands.Should.should;
@@ -178,12 +173,19 @@ public class MessageListener extends ListenerAdapter {
         //Remember, in all of these .equals checks it is actually comparing
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
-        if (messageContent.equals("!ping")) {
+        if (messageContent.equals("$ping")) {
             //This will send a message, "pong!", by constructing a RestAction and "queueing" the action with the Requester.
             // By calling queue(), we send the Request to the Requester which will send it to discord. Using queue() or any
             // of its different forms will handle ratelimiting for you automatically!
 
-            channel.sendMessage("pong!").queue();
+            long start = System.currentTimeMillis();
+            try {
+                Message ping = channel.sendMessage(":ping_pong:`...`").block();
+                ping.editMessage(":ping_pong: `" + (System.currentTimeMillis() - start) + "ms`").queue();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
         } else if (messageContent.equals("!roll")) {
             //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer
             // will provide you with the object that results after you execute your RestAction. As a note, not all RestActions
