@@ -30,6 +30,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.user.UserTypingEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import tythor.TythorBot;
 
 import java.util.List;
 import java.util.Random;
@@ -173,7 +174,7 @@ public class MessageListener extends ListenerAdapter {
         //Remember, in all of these .equals checks it is actually comparing
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
-        if (messageContent.equals("$ping")) {
+        if (messageContent.equals("!ping")) {
             //This will send a message, "pong!", by constructing a RestAction and "queueing" the action with the Requester.
             // By calling queue(), we send the Request to the Requester which will send it to discord. Using queue() or any
             // of its different forms will handle ratelimiting for you automatically!
@@ -186,6 +187,38 @@ public class MessageListener extends ListenerAdapter {
                 e.printStackTrace();
             }
 
+        } else if(messageContent.equals("!uptime")) {
+            long time = (System.currentTimeMillis() - TythorBot.uptime) / 1000;
+            String period = "seconds";
+            if(time >= 60) {
+                time /= 60;
+                if(time <= 1)
+                    period = "minute";
+                else
+                    period = "minutes";
+            }
+            if(time >= 60 && period.equals("minutes")) {
+                time /= 60;
+                if(time <= 1)
+                    period = "hour";
+                else
+                    period = "hours";
+            }
+            if(time >= 24 && period.equals("hours")) {
+                time /= 24;
+                if(time <= 1)
+                    period = "day";
+                else
+                    period = "days";
+            }
+            if(time >= 7 && period.equals("days")) {
+                time /= 7;
+                if(time <= 1)
+                    period = "week";
+                else
+                    period = "weeks";
+            }
+            channel.sendMessage(Long.toString(time) + " " + period).queue();
         } else if (messageContent.equals("!roll")) {
             //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer
             // will provide you with the object that results after you execute your RestAction. As a note, not all RestActions

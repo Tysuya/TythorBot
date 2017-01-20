@@ -9,6 +9,7 @@ import static tythor.servlet.BindToPort.bindToPort;
 
 public class TythorBot {
     public static JDA jda;
+    public static long uptime = System.currentTimeMillis();
     public static void main(String[] args) {
         JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT).setToken("MjcwMTEwMjEzNTIzMTExOTM2.C1zHQA.geSuOqz1FtfiMU86GOmRoiGPmOs");
                 // MTU5MjAxNTI2MTE0NTQ5NzYw.C1kPQw.eT99T2xS8VjmTcWzOgyB8m3gg7I
