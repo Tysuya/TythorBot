@@ -24,8 +24,8 @@ public class BindToPort extends HttpServlet {
         server.join();
     }
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        resp.getWriter().print("Hello from Tyler!\n");
+        response.getWriter().print("Hello, I am TythorBot!\n");
     }
 }
