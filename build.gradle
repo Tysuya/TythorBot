@@ -15,7 +15,7 @@ jar {
     }
 }
 
-defaultTasks "clean", "build", "installApp"
+defaultTasks "clean", "build", "installApp", "stage", "copyToLib"
 
 task stage(dependsOn: ['build'])
 
