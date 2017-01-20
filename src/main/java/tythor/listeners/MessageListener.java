@@ -190,33 +190,37 @@ public class MessageListener extends ListenerAdapter {
         } else if(messageContent.equals("!uptime")) {
             long time = (System.currentTimeMillis() - TythorBot.uptime) / 1000;
             String period = "seconds";
-            if(time >= 60) {
+            if(time >= 60 && period.contains("seconds")) {
+                String leftover = " " + Long.toString(time % 60) + " seconds";
                 time /= 60;
                 if(time <= 1)
-                    period = "minute";
+                    period = "minute" + leftover;
                 else
-                    period = "minutes";
+                    period = "minutes" + leftover;
             }
-            if(time >= 60 && period.equals("minutes")) {
+            if(time >= 60 && period.contains("minutes")) {
+                String leftover = " " + Long.toString(time % 60) + " minutes";
                 time /= 60;
                 if(time <= 1)
-                    period = "hour";
+                    period = "hour" + leftover;
                 else
-                    period = "hours";
+                    period = "hours" + leftover;
             }
-            if(time >= 24 && period.equals("hours")) {
+            if(time >= 24 && period.contains("hours")) {
+                String leftover = " " + Long.toString(time % 24) + " hours";
                 time /= 24;
                 if(time <= 1)
-                    period = "day";
+                    period = "day" + leftover;
                 else
-                    period = "days";
+                    period = "days" + leftover;
             }
-            if(time >= 7 && period.equals("days")) {
+            if(time >= 7 && period.contains("days")) {
+                String leftover = " " + Long.toString(time % 7) + " days";
                 time /= 7;
                 if(time <= 1)
-                    period = "week";
+                    period = "week" + leftover;
                 else
-                    period = "weeks";
+                    period = "weeks" + leftover;
             }
             channel.sendMessage(Long.toString(time) + " " + period).queue();
         } else if (messageContent.equals("!roll")) {
