@@ -10,7 +10,7 @@ import static tythor.servlet.BindToPort.keepAwake;
 
 public class TythorBot {
     public static JDA jda;
-    public static long uptime = System.currentTimeMillis() - 1000000000;
+    public static long uptime = System.currentTimeMillis();
     public static void main(String[] args) {
         JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT).setToken("MjcwMTEwMjEzNTIzMTExOTM2.C1zHQA.geSuOqz1FtfiMU86GOmRoiGPmOs");
         System.out.println(uptime);
