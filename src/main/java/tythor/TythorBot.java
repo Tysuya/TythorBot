@@ -42,7 +42,7 @@ public class TythorBot {
                 MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
                 Uptime.uptime(channel);
             }
-        }, 0, 300000);
+        }, 0, 30000);
 
     }
 }
