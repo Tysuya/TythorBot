@@ -35,8 +35,6 @@ public class TythorBot {
             e.printStackTrace();
         }
 
-        MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
-        Uptime.uptime(channel);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
