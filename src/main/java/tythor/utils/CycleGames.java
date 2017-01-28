@@ -1,8 +1,10 @@
 package tythor.utils;
 
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.managers.Presence;
 import tythor.TythorBot;
+import tythor.commands.Uptime;
 
 import java.util.Random;
 import java.util.Timer;
@@ -25,6 +27,14 @@ public class CycleGames {
                     System.out.println(games[random] + " | Use tb!help");
                 }
             }, 0, 300000);
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
+                    Uptime.uptime(channel);
+                }
+            }, 0, 300000 * 12);
         } catch (Exception e) {
             e.printStackTrace();
         }

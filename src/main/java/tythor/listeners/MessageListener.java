@@ -117,13 +117,6 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
-                Uptime.uptime(channel);
-            }
-        }, 0, 30000 * 12);
         //These are provided with every event in JDA
         JDA jda = event.getJDA();                       //JDA, the core of the api.
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
