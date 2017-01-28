@@ -34,6 +34,8 @@ public class TythorBot {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
+        Uptime.uptime(channel);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -42,7 +44,7 @@ public class TythorBot {
                 MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
                 Uptime.uptime(channel);
             }
-        }, 0, 300000 * 12);
+        }, 0, 300000 * 6);
 
     }
 }
