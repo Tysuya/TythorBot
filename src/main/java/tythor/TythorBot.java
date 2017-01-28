@@ -3,7 +3,12 @@ package tythor;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import tythor.commands.Uptime;
 import tythor.listeners.MessageListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static tythor.servlet.BindToPort.bindToPort;
 import static tythor.servlet.BindToPort.keepAwake;
@@ -29,5 +34,15 @@ public class TythorBot {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
+                Uptime.uptime(channel);
+            }
+        }, 0, 300000 * 12);
+
     }
 }

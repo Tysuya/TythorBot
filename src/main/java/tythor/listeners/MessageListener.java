@@ -24,19 +24,18 @@ import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.MessageHistory;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.user.UserTypingEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import tythor.TythorBot;
 
 import java.util.List;
 import java.util.Random;
 
 import static tythor.commands.Fact.fact;
 import static tythor.commands.Should.should;
+import static tythor.commands.Uptime.uptime;
 import static tythor.utils.CycleGames.cycleGames;
 import static tythor.utils.SendMentionMessage.sendMentionMessage;
 
@@ -92,11 +91,6 @@ public class MessageListener extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(ReadyEvent event) {
-
-    }
-
-    @Override
     public void onShutdown(ShutdownEvent event) {
         System.out.println(event.getShutdownTime());
     }
@@ -134,7 +128,7 @@ public class MessageListener extends ListenerAdapter {
         boolean bot = author.isBot();                     //This boolean is useful to determine if the User that
         // sent the Message is a BOT or not!
 
-        isSpam(channel, message);
+        //isSpam(channel, message);
 
         if (event.isFromType(ChannelType.TEXT))         //If this message was sent to a Guild TextChannel
         {
@@ -188,114 +182,7 @@ public class MessageListener extends ListenerAdapter {
             }
 
         } else if(messageContent.equals("!uptime")) {
-            long time = (System.currentTimeMillis() - TythorBot.uptime) / 1000;
-            System.out.println("time: " + time);
-            String period = "seconds";
-            if(time >= 604800) {
-                String leftover = " ";
-                long tempTime = time / 86400 % 7;
-                if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " day ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " days ";
-
-                tempTime = time / 3600 % 24;
-                if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " hour ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " hours ";
-
-                tempTime = time / 60 % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " minute ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " minutes ";
-
-                tempTime = time % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " second";
-                else
-                    leftover += Long.toString(tempTime).toString() + " seconds";
-
-                time /= 604800;
-                if(time == 1)
-                    period = "week" + leftover;
-                else
-                    period = "weeks" + leftover;
-            } else if(time >= 86400) {
-                String leftover = " ";
-                long tempTime = time / 3600 % 24;
-                if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " hour ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " hours ";
-
-                tempTime = time / 60 % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " minute ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " minutes ";
-
-                tempTime = time % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " second";
-                else
-                    leftover += Long.toString(tempTime).toString() + " seconds";
-
-                time /= 86400;
-                if(time == 1)
-                    period = "day" + leftover;
-                else
-                    period = "days" + leftover;
-            } else if(time >= 3600) {
-                String leftover = " ";
-                long tempTime = time / 60 % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " minute ";
-                else
-                    leftover += Long.toString(tempTime).toString() + " minutes ";
-                System.out.println(tempTime);
-
-                tempTime = time % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " second";
-                else
-                    leftover += Long.toString(tempTime).toString() + " second";
-
-                time /= 3600;
-                if(time == 1)
-                    period = "hour" + leftover;
-                else
-                    period = "hours" + leftover;
-            } else if(time >= 60) {
-                String leftover = " ";
-                long tempTime = time % 60;
-                if(tempTime == 0)
-                    leftover = leftover;
-                else if(tempTime == 1)
-                    leftover += Long.toString(tempTime).toString() + " second";
-                else
-                    leftover += Long.toString(tempTime).toString() + " seconds";
-                
-                time /= 60;
-                if(time == 1)
-                    period = "minute" + leftover;
-                else
-                    period = "minutes" + leftover;
-            }
-            channel.sendMessage(Long.toString(time) + " " + period).queue();
+            uptime(channel);
         } else if (messageContent.equals("!roll")) {
             //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer
             // will provide you with the object that results after you execute your RestAction. As a note, not all RestActions
