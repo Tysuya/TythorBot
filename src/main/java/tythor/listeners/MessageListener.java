@@ -123,7 +123,7 @@ public class MessageListener extends ListenerAdapter {
                 MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
                 Uptime.uptime(channel);
             }
-        }, 0, 3000);
+        }, 0, 30000 * 12);
         //These are provided with every event in JDA
         JDA jda = event.getJDA();                       //JDA, the core of the api.
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
