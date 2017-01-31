@@ -14,7 +14,6 @@ public class TythorBot {
     public static long uptime = System.currentTimeMillis();
     public static void main(String[] args) {
         JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT).setToken("MjcwMTEwMjEzNTIzMTExOTM2.C1zHQA.geSuOqz1FtfiMU86GOmRoiGPmOs");
-        System.out.println(uptime);
                 // MTU5MjAxNTI2MTE0NTQ5NzYw.C1kPQw.eT99T2xS8VjmTcWzOgyB8m3gg7I
 
         //.buildBlocking();  //There are 2 ways to login, blocking vs async. Blocking guarantees that JDA will be completely loaded.
@@ -22,9 +21,9 @@ public class TythorBot {
             jda = jdaBuilder.buildBlocking();
             jda.addEventListener(new MessageListener());  //An instance of a class that will handle events.
 
+            cycleGames();
             keepAwake();
             bindToPort();
-            cycleGames();
         } catch(Exception e) {
             e.printStackTrace();
         }
