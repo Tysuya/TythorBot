@@ -29,18 +29,13 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.user.UserTypingEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import tythor.TythorBot;
-import tythor.commands.Uptime;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static tythor.commands.Fact.fact;
 import static tythor.commands.Should.should;
 import static tythor.commands.Uptime.uptime;
-import static tythor.utils.CycleGames.cycleGames;
 import static tythor.utils.SendMentionMessage.sendMentionMessage;
 
 public class MessageListener extends ListenerAdapter {
@@ -83,7 +78,6 @@ public class MessageListener extends ListenerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        cycleGames();
     }
 
     @Override
@@ -116,7 +110,6 @@ public class MessageListener extends ListenerAdapter {
      */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        Timer timer = new Timer();
         //These are provided with every event in JDA
         JDA jda = event.getJDA();                       //JDA, the core of the api.
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
@@ -134,6 +127,8 @@ public class MessageListener extends ListenerAdapter {
         // sent the Message is a BOT or not!
 
         //isSpam(channel, message);
+
+
 
         if (event.isFromType(ChannelType.TEXT))         //If this message was sent to a Guild TextChannel
         {

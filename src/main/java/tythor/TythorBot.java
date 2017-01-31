@@ -7,6 +7,7 @@ import tythor.listeners.MessageListener;
 
 import static tythor.servlet.BindToPort.bindToPort;
 import static tythor.servlet.BindToPort.keepAwake;
+import static tythor.utils.CycleGames.cycleGames;
 
 public class TythorBot {
     public static JDA jda;
@@ -20,12 +21,10 @@ public class TythorBot {
         try {
             jda = jdaBuilder.buildBlocking();
             jda.addEventListener(new MessageListener());  //An instance of a class that will handle events.
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        try {
+
             keepAwake();
             bindToPort();
+            cycleGames();
         } catch(Exception e) {
             e.printStackTrace();
         }
