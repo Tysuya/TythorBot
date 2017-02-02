@@ -8,7 +8,7 @@ import tythor.TythorBot;
  */
 public class Uptime {
     public static void uptime(MessageChannel channel) {
-        long time = (System.currentTimeMillis() - TythorBot.uptime) / 1000;
+        long time = (System.currentTimeMillis() - TythorBot.startTime) / 1000;
         System.out.println("time: " + time);
         long seconds = time % 60;
         long minutes = time / 60 % 60;
