@@ -9,6 +9,7 @@ import tythor.listeners.MessageListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static tythor.servlet.BindToPort.bindToPort;
 import static tythor.servlet.BindToPort.keepAwake;
@@ -28,6 +29,7 @@ public class TythorBot {
 
             MessageChannel channel = jda.getTextChannelById("241064442429702144");
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ssa");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
             Date date = new Date();
             channel.sendMessage("Started on `" + dateFormat.format(date) + "`").queue();
 
