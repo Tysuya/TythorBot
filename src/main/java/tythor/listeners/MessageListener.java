@@ -265,7 +265,7 @@ public class MessageListener extends ListenerAdapter {
             // but, honestly, queue is most likely what developers will want to use.
         } else if (messageContent.contains("fact") && !message.getAuthor().isBot()) {
             fact(channel, message, jda);
-        } else if (messageContent.contains("should")) {
+        } else if (messageContent.contains("!should")) {
             should(channel, message);
         } else if (messageContent.startsWith("@TythorBot")) {
             try {
