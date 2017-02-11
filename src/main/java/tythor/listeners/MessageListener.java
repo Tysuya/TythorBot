@@ -14,10 +14,6 @@ package tythor.listeners;/*
  * limitations under the License.
  */
 
-import com.google.code.chatterbotapi.ChatterBot;
-import com.google.code.chatterbotapi.ChatterBotFactory;
-import com.google.code.chatterbotapi.ChatterBotSession;
-import com.google.code.chatterbotapi.ChatterBotType;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDAInfo;
@@ -29,6 +25,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.user.UserTypingEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import tythor.utils.CleverBotQuery;
 
 import java.util.List;
 import java.util.Random;
@@ -269,6 +266,17 @@ public class MessageListener extends ListenerAdapter {
             should(channel, message);
         } else if (messageContent.startsWith("@TythorBot")) {
             try {
+                String chat = messageContent.split("@TythorBot ")[1];
+                System.out.println(chat);
+
+                CleverBotQuery cleverBotQuery = new CleverBotQuery("c4c6ef1eeefdfa203806506b4a2d63c0", chat);
+                cleverBotQuery.sendRequest();
+                chat = cleverBotQuery.getResponse();
+                sendMentionMessage(channel, message, chat);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            /*try {
                 MessageHistory messageHistory = new MessageHistory(channel);
                 Message lastMessage = messageHistory.retrievePast(1).block().get(0);
 
@@ -298,8 +306,7 @@ public class MessageListener extends ListenerAdapter {
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
+            }*/
         }
     }
 
