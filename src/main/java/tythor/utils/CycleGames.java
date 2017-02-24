@@ -32,8 +32,7 @@ public class CycleGames {
                 @Override
                 public void run() {
                     MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
-                    if((System.currentTimeMillis() - TythorBot.startTime) / 1000 >= 86400)
-                        Uptime.uptime(channel);
+                    Uptime.uptime(channel);
                 }
             }, 0, 30000);
         } catch (Exception e) {
