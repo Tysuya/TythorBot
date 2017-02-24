@@ -34,7 +34,7 @@ public class CycleGames {
                     MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
                     Uptime.uptime(channel);
                 }
-            }, 0, 30000);
+            }, 0, 900000);
         } catch (Exception e) {
             e.printStackTrace();
         }
