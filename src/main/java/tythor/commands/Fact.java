@@ -21,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static tythor.utils.SendMentionMessage.sendMentionMessage;
-import static tythor.utils.Shorten.shorten;
 
 /**
  * Created by Tyler on 1/17/2017.
@@ -65,7 +64,8 @@ public class Fact {
 
                     InputSource inputSource = new InputSource(new InputStreamReader((InputStream) request2.getContent()));
                     String result = (String) xPath.evaluate("//url", inputSource, XPathConstants.STRING);
-                    result = shorten(result);
+                    // waa.ai imgur API is down
+                    //result = shorten(result);
                     lastMessage.editMessage(message.getAuthor().getAsMention() + " " + rootString).queue();
                     System.out.println(message.getAuthor().getAsMention() + " " + rootString);
                     sendMentionMessage(channel, message, "Here's a random cat: " + result);
