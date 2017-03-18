@@ -66,7 +66,6 @@ public class Fact {
                     String result = (String) xPath.evaluate("//url", inputSource, XPathConstants.STRING);
                     // waa.ai imgur API is down
                     //result = shorten(result);
-                    lastMessage.editMessage(message.getAuthor().getAsMention() + " " + rootString).queue();
                     System.out.println(message.getAuthor().getAsMention() + " " + rootString);
                     sendMentionMessage(channel, message, "Here's a random cat: " + result);
                 } catch (Exception e) {
@@ -99,7 +98,7 @@ public class Fact {
             rootString = rootString.replaceAll("<em>", "");
             rootString = rootString.replaceAll("</em>", "");
             rootString = rootString.replaceAll("&amp", "&");
-            lastMessage.editMessage(rootString).queue();
+            lastMessage.editMessage(message.getAuthor().getAsMention() + " " + rootString).queue();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
