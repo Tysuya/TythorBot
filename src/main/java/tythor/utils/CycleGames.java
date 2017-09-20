@@ -6,9 +6,9 @@ import net.dv8tion.jda.core.managers.Presence;
 import tythor.TythorBot;
 import tythor.commands.Uptime;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Tyler on 1/17/2017.
@@ -35,6 +35,38 @@ public class CycleGames {
                     Uptime.uptime(channel);
                 }
             }, 0, 900000);
+
+            // Birthdays
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    MessageChannel channel = TythorBot.jda.getTextChannelById("232011880485486592");
+
+                    DateFormat dateFormat = new SimpleDateFormat("MM/dd hh:mma");
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+                    String dateString = dateFormat.format(new Date());
+
+                    if(dateString.contains("09/20")) {
+                        presence.setGame(Game.of("It's Chaikitty's Birthday!"));
+                    }
+                    if(dateString.equals("09/20 12:00AM")) {
+                        channel.sendMessage("@everyone It is now 12:00AM on 09/20! I'd like to wish a happy birthday to the one and only Chaikitty!)").queue();
+                    }
+                    if(dateString.equals("09/20 11:59PM")) {
+                        channel.sendMessage("@everyone It is now 11:59PM on 09/20! <@232011523256483840> I hope your birthday was everything you wished for and more! I'll be sure to message you next year too (if I'm still awake :zzz:).").queue();
+                    }
+
+                    if(dateString.contains("11/06")) {
+                        presence.setGame(Game.of("It's Tythor's Birthday!"));
+                    }
+                    if(dateString.equals("11/06 12:00AM")) {
+                        channel.sendMessage("@everyone It is now 12:00AM on 11/06! I'd like to wish a happy birthday to the one and only Tythor!)").queue();
+                    }
+                    if(dateString.equals("11/06 11:59PM")) {
+                        channel.sendMessage("@everyone It is now 11:59PM on 09/20! <@159201526114549760> I hope your birthday was everything you wished for and more! I'll be sure to message you next year too (if I'm still awake :zzz:).").queue();
+                    }
+                }
+            }, 0, 45000);
         } catch (Exception e) {
             e.printStackTrace();
         }

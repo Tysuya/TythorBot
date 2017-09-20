@@ -30,8 +30,7 @@ public class TythorBot {
             MessageChannel channel = jda.getTextChannelById("241064442429702144");
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ssa");
             dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
-            Date date = new Date();
-            channel.sendMessage("Started on `" + dateFormat.format(date) + "`").queue();
+            channel.sendMessage("Started on `" + dateFormat.format(new Date()) + "`").queue();
 
             cycleGames();
             keepAwake();
