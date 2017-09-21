@@ -27,7 +27,7 @@ public class Uptime {
         if(days == 1)
             daysString = " day ";
 
-        channel.sendMessage("TythorBot has been online for " + time + " seconds " + System.currentTimeMillis() + " is the systemTime " + TythorBot.startTime + " is the startTime```" + days + daysString + hours + hoursString + minutes + minutesString + seconds + secondsString + "```").queue();
+        channel.sendMessage("TythorBot has been online for ```"+ days + daysString + hours + hoursString + minutes + minutesString + seconds + secondsString + "```").queue();
     }
 
 }

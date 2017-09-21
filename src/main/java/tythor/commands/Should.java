@@ -12,8 +12,7 @@ import static tythor.utils.SendMentionMessage.sendMentionMessage;
  */
 public class Should {
     public static void should(MessageChannel channel, Message message) {
-        Random random = new Random();
-        if (random.nextBoolean()) {
+        if (new Random().nextBoolean()) {
             sendMentionMessage(channel, message, "YES");
         } else {
             sendMentionMessage(channel, message, "NO");
