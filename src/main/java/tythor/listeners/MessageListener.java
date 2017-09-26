@@ -178,7 +178,7 @@ public class MessageListener extends ListenerAdapter {
                 e.printStackTrace();
             }
 
-        } else if(messageContent.equals("!startTime")) {
+        } else if(messageContent.equals("!uptime")) {
             uptime(channel);
         } else if (messageContent.equals("!roll")) {
             //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer

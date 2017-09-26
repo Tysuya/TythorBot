@@ -28,13 +28,13 @@ public class CycleGames {
                 }
             }, 0, 300000);
 
-            timer.schedule(new TimerTask() {
+            /*timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
                     Uptime.uptime(channel);
                 }
-            }, 0, 900000);
+            }, 0, 900000);*/
 
             // Birthdays
             timer.schedule(new TimerTask() {
