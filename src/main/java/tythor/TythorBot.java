@@ -31,11 +31,10 @@ public class TythorBot {
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ssa");
             dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
             channel.sendMessage("Started on `" + dateFormat.format(new Date()) + "`").queue();
-            channel.sendTyping();
 
             cycleGames();
-            //keepAwake();
-            //bindToPort();
+            keepAwake();
+            bindToPort();
         } catch(Exception e) {
             e.printStackTrace();
         }

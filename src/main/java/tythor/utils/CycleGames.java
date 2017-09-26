@@ -35,15 +35,7 @@ public class CycleGames {
                 }
             }, 0, 900000);*/
 
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
-                    channel.sendTyping();
-                }
-            }, 0, 5000);
-
-            // Birthdays
+            // Birthdays; general channel
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

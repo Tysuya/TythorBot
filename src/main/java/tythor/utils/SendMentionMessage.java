@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
  */
 public class SendMentionMessage {
     public static void sendMentionMessage(MessageChannel channel, Message message, String returnMessage) {
+        channel.sendTyping().complete();
         channel.sendMessage(message.getAuthor().getAsMention() + " " + returnMessage).queue();
     }
 }

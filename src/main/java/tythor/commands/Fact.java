@@ -44,7 +44,8 @@ public class Fact {
                 randomNumber = 300;
             }
             if (randomNumber <= 300) {
-                String sURL = "http://catfacts-api.appspot.com/api/facts";
+                // http://catfacts-api.appspot.com/api/facts
+                String sURL = "https://catfact.ninja/fact";
                 URL url = new URL(sURL);
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
@@ -52,7 +53,8 @@ public class Fact {
                 JsonParser jp = new JsonParser();
                 JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
                 JsonObject rootObj = root.getAsJsonObject();
-                rootString = rootObj.get("facts").getAsString();
+                rootString = rootObj.get("fact").getAsString();
+
                 String sURL2 = "http://thecatapi.com/api/images/get?format=xml&results_per_page=1";
                 URL url2 = new URL(sURL2);
                 HttpURLConnection request2 = (HttpURLConnection) url2.openConnection();
