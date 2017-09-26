@@ -60,7 +60,7 @@ public class CycleGames {
                         presence.setGame(Game.of("It's Chaikitty's Birthday!"));
                     }
                     if(dateString.equals("09/20 12:00AM")) {
-                        channel.sendMessage("@everyone It is now 12:00AM on 09/20! <@232011523256483840> I'd like to wish a happy birthday to the one and only `Chaikitty`! Ahem, please join me in song :notes::" + "```Happy birthday to you,\n" + "Happy birthday to you,\n" + "Happy birthday dear Chaikitty,\n" + "Happy birthday to you.\n" + "\n" + "From good friends and true,\n" + "From old friends and new,\n" + "May good luck go with you,\n" + "And happiness too.\n```" + emojiString).queue();
+                        channel.sendMessage("@everyone It is now 12:00AM on 09/20! <@232011523256483840> I'd like to wish a happy birthday to the one and only `Chaikitty`! Ahem, please join me in song :notes::" + "```Happy birthday to you,\n" + "Happy birthday to you,\n" + "Happy birthday dear Tythor,\n" + "Happy birthday to you.\n" + "\n" + "From good friends and true,\n" + "From old friends and new,\n" + "May good luck go with you,\n" + "And happiness too.\n```" + emojiString).queue();
                     }
                     if(dateString.equals("09/20 11:59PM")) {
                         channel.sendMessage("@everyone It is now 11:59PM on 09/20! <@232011523256483840> I hope your birthday was everything you wished for and more! I'll be sure to message you next year too (if I'm still awake :zzz:).").queue();
