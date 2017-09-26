@@ -1,18 +1,4 @@
-package tythor.listeners;/*
- *     Copyright 2015-2016 Austin Keener & Michael Ritter
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+package tythor.listeners;
 
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
@@ -35,9 +21,6 @@ import static tythor.commands.Uptime.uptime;
 import static tythor.utils.SendMentionMessage.sendMentionMessage;
 
 public class MessageListener extends ListenerAdapter {
-    /**
-     * This is the method where the program starts.
-     */
     public MessageListener() {
 
     }
@@ -90,8 +73,6 @@ public class MessageListener extends ListenerAdapter {
 
         //isSpam(channel, message);
 
-
-
         if (event.isFromType(ChannelType.TEXT))         //If this message was sent to a Guild TextChannel
         {
             //Because we now know that this message was sent in a Guild, we can do guild specific things
@@ -122,7 +103,6 @@ public class MessageListener extends ListenerAdapter {
             System.out.printf("[GRP: %s]<%s>: %s\n", groupName, author.getName(), messageContent);
         }
 
-
         //Now that you have a grasp on the things that you might see in an event, specifically MessageReceivedEvent,
         // we will look at sending / responding to messages!
         //This will be an extremely simplified example of command processing.
@@ -131,10 +111,6 @@ public class MessageListener extends ListenerAdapter {
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
         if (messageContent.equals("!ping")) {
-            //This will send a message, "pong!", by constructing a RestAction and "queueing" the action with the Requester.
-            // By calling queue(), we send the Request to the Requester which will send it to discord. Using queue() or any
-            // of its different forms will handle ratelimiting for you automatically!
-
             long start = System.currentTimeMillis();
             try {
                 Message ping = channel.sendMessage(":ping_pong:`...`").complete();
@@ -216,17 +192,8 @@ public class MessageListener extends ListenerAdapter {
             } else {
                 channel.sendMessage("This is a Guild-Only command!").queue();
             }
-        } else if (messageContent.equals("!block")) {
-            //This is an example of how to use the block() method on RestAction. The block method acts similarly to how
-            // JDABuilder's buildBlocking works, it waits until the request has been sent before continuing execution.
-            //Most developers probably wont need this and can just use queue. If you use block, JDA will still handle ratelimit
-            // control, however it won't queue the Request to be sent after the ratelimit retry after time is past. It
-            // will instead fire a RateLimitException!
-            //One of the major advantages of block() is that it returns the object that queue's success consumer would have,
-            // but it does it in the same execution context as when the request was made. This may be important for most developers,
-            // but, honestly, queue is most likely what developers will want to use.
         } else if (messageContent.contains("fact") && !message.getAuthor().isBot()) {
-            fact(channel, message, jda);
+            fact(channel, message);
         } else if (messageContent.contains("!should")) {
             should(channel, message);
         } else if (messageContent.startsWith("@TythorBot")) {

@@ -25,8 +25,7 @@ import static tythor.utils.SendMentionMessage.sendMentionMessage;
  * Created by Tyler on 1/17/2017.
  */
 public class Fact {
-    public static void fact(MessageChannel channel, Message message, JDA jda) {
-        //MessageHistory messageHistory = new MessageHistory(channel);
+    public static void fact(MessageChannel channel, Message message) {
         Message lastMessage = null;
         try {
             lastMessage = channel.sendMessage(message.getAuthor().getAsMention() + " Loading...").complete();
@@ -36,13 +35,9 @@ public class Fact {
         }
         // lastMessage.addReaction(new EmoteImpl("<:poop" + message.getGuild().getId() + ">", jda)).queue();
 
-
         int randomNumber = (int) (Math.random() * 1000.0);
         String rootString = "";
         try {
-            if (message.getContent().contains("cat fact")) {
-                randomNumber = 300;
-            }
             if (randomNumber <= 300) {
                 // http://catfacts-api.appspot.com/api/facts
                 String sURL = "https://catfact.ninja/fact";
@@ -50,8 +45,7 @@ public class Fact {
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
 
-                JsonParser jp = new JsonParser();
-                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+                JsonElement root = new JsonParser().parse(new InputStreamReader((InputStream) request.getContent()));
                 JsonObject rootObj = root.getAsJsonObject();
                 rootString = rootObj.get("fact").getAsString();
 
@@ -73,15 +67,13 @@ public class Fact {
                     e.printStackTrace();
                 }
             } else {
-                randomNumber = (int) (Math.random() * 1000.0);
+                /*randomNumber = (int) (Math.random() * 1000.0);
                 String sURL = "http://mentalfloss.com/api/1.0/views/amazing_facts.json?id=" + randomNumber;
                 URL url = new URL(sURL);
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
 
-                // Convert to a JSON object to print data
-                JsonParser jp = new JsonParser(); //from gson
-                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+                JsonElement root = new JsonParser().parse(new InputStreamReader((InputStream) request.getContent()));
                 JsonArray rootArr = root.getAsJsonArray();
                 String r = "";
                 for (int i = 0; i < rootArr.size(); i++) {
@@ -94,7 +86,7 @@ public class Fact {
                         index = i;
                     }
                 }
-                rootString = r.substring(11, index);
+                rootString = r.substring(11, index);*/
             }
             rootString = rootString.replaceAll("<em>", "");
             rootString = rootString.replaceAll("</em>", "");
