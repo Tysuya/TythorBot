@@ -17,7 +17,6 @@ package tythor.listeners;/*
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDAInfo;
-import net.dv8tion.jda.core.MessageHistory;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.ShutdownEvent;
@@ -40,41 +39,7 @@ public class MessageListener extends ListenerAdapter {
      * This is the method where the program starts.
      */
     public MessageListener() {
-        //We construct a builder for a BOT account. If we wanted to use a CLIENT account
-        // we would use AccountType.CLIENT
-        /*try {
-            Server server = new Server(8080);
-            ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-            context.setContextPath("/");
-            server.setHandler(context);
-            context.addServlet(new ServletHolder(),"*//*");
-            server.start();
-            server.join();
 
-            String webappDirLocation = "WebContent/";
-            Tomcat tomcat = new Tomcat();
-
-            //The port that we should run on can be set into an environment variable
-            //Look for that variable and default to 8080 if it isn't there.
-            String webPort = System.getenv("PORT");
-            if(webPort == null || webPort.isEmpty()) {
-                webPort = "8080";
-            }
-
-            tomcat.setPort(Integer.valueOf(webPort));
-
-            tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-            System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
-
-            tomcat.start();
-            tomcat.getServer().await();
-        } catch (LifecycleException e) {
-            e.printStackTrace();
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override
@@ -172,7 +137,7 @@ public class MessageListener extends ListenerAdapter {
 
             long start = System.currentTimeMillis();
             try {
-                Message ping = channel.sendMessage(":ping_pong:`...`").block();
+                Message ping = channel.sendMessage(":ping_pong:`...`").complete();
                 ping.editMessage(":ping_pong: `" + (System.currentTimeMillis() - start) + "ms`").queue();
             } catch(Exception e) {
                 e.printStackTrace();
@@ -313,10 +278,10 @@ public class MessageListener extends ListenerAdapter {
     private void isSpam(MessageChannel channel, Message message) {
         MessageHistory messageHistory = new MessageHistory(channel);
         try {
-            List<Message> messageHistoryList = messageHistory.retrievePast(5).block();
+            List<Message> messageHistoryList = messageHistory.retrievePast(5).complete();
             for (int i = 3; i < messageHistoryList.size(); i++) {
                 if (message.getContent().equals(messageHistoryList.get(i).getContent())) {
-                    message.deleteMessage().queue();
+                    message.delete().queue();
                     System.out.println("Deleted");
                 }
             }

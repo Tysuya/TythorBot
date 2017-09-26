@@ -32,6 +32,7 @@ public class TythorBot {
             dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
             channel.sendMessage("Started on `" + dateFormat.format(new Date()) + "`").queue();
 
+
             cycleGames();
             keepAwake();
             bindToPort();

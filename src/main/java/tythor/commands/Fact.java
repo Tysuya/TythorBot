@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.MessageHistory;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import org.xml.sax.InputSource;
@@ -27,10 +26,10 @@ import static tythor.utils.SendMentionMessage.sendMentionMessage;
  */
 public class Fact {
     public static void fact(MessageChannel channel, Message message, JDA jda) {
-        MessageHistory messageHistory = new MessageHistory(channel);
+        //MessageHistory messageHistory = new MessageHistory(channel);
         Message lastMessage = null;
         try {
-            lastMessage = channel.sendMessage(message.getAuthor().getAsMention() + " Loading...").block();
+            lastMessage = channel.sendMessage(message.getAuthor().getAsMention() + " Loading...").complete();
             System.out.println(lastMessage.getContent());
         } catch (Exception e) {
             e.printStackTrace();
