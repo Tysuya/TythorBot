@@ -28,14 +28,14 @@ public class TythorBot {
             jda.addEventListener(new MessageListener());  //An instance of a class that will handle events.
 
             MessageChannel channel = jda.getTextChannelById("241064442429702144");
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy hh:mm:ssa");
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ssa");
             dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
             channel.sendMessage("Started on `" + dateFormat.format(new Date()) + "`").queue();
-
+            channel.sendTyping();
 
             cycleGames();
-            keepAwake();
-            bindToPort();
+            //keepAwake();
+            //bindToPort();
         } catch(Exception e) {
             e.printStackTrace();
         }

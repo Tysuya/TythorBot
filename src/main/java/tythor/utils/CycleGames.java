@@ -4,7 +4,6 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.managers.Presence;
 import tythor.TythorBot;
-import tythor.commands.Uptime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +34,14 @@ public class CycleGames {
                     Uptime.uptime(channel);
                 }
             }, 0, 900000);*/
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    MessageChannel channel = TythorBot.jda.getTextChannelById("241064442429702144");
+                    channel.sendTyping();
+                }
+            }, 0, 5000);
 
             // Birthdays
             timer.schedule(new TimerTask() {
