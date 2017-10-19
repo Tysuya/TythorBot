@@ -115,7 +115,7 @@ public class MessageListener extends ListenerAdapter {
                 channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
                         "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
                         "I am also a chatbot, so start a message with <@270110213523111936>, and I will respond.\n" +
-                        "I was made by <@159201526114549760>, so message any complaints to him.").queue();
+                        "I am in active development, so some things may break. Message any bugs to my creator, <@159201526114549760>.").queue();
 
             } else if (messageContent.equals("!ping")) {
                 long start = System.currentTimeMillis();
