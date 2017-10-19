@@ -110,110 +110,111 @@ public class MessageListener extends ListenerAdapter {
         //Remember, in all of these .equals checks it is actually comparing
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
-        if(messageContent.equals("!help")) {
-            channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
-                    "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
-                    "I am also a chatbot, so start a message with @TythorBot, and I will respond.\n" +
-                    "I was made by <@159201526114549760>, so message any complaints to him.").queue();
-        }
-        else if (messageContent.equals("!ping")) {
-            long start = System.currentTimeMillis();
-            try {
-                Message ping = channel.sendMessage(":ping_pong:`...`").complete();
-                ping.editMessage(":ping_pong: `" + (System.currentTimeMillis() - start) + "ms`").queue();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+        if(!message.getAuthor().isBot()) {
+            if (messageContent.equals("!help")) {
+                channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
+                        "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
+                        "I am also a chatbot, so start a message with <@270110213523111936>, and I will respond.\n" +
+                        "I was made by <@159201526114549760>, so message any complaints to him.").queue();
 
-        } else if(messageContent.equals("!uptime")) {
-            uptime(channel);
-        } else if (messageContent.equals("!roll")) {
-            //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer
-            // will provide you with the object that results after you execute your RestAction. As a note, not all RestActions
-            // have object returns and will instead have Void returns. You can still use the success consumer to determine when
-            // the action has been completed!
-
-            Random rand = new Random();
-            int roll = rand.nextInt(6) + 1; //This results in 1 - 6 (instead of 0 - 5)
-            channel.sendMessage("Your roll: " + roll).queue(sentMessage ->  //This is called a lambda statement. If you don't know
-            {                                                               // what they are or how they work, try google!
-                if (roll < 3) {
-                    channel.sendMessage("The role for messageId: " + sentMessage.getId() + " wasn't very good... Must be bad luck!\n").queue();
+            } else if (messageContent.equals("!ping")) {
+                long start = System.currentTimeMillis();
+                try {
+                    Message ping = channel.sendMessage(":ping_pong:`...`").complete();
+                    ping.editMessage(":ping_pong: `" + (System.currentTimeMillis() - start) + "ms`").queue();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        } else if (messageContent.startsWith("!kick"))   //Note, I used "startsWith, not equals.
-        {
-            //This is an admin command. That means that it requires specific permissions to use it, in this case
-            // it needs Permission.KICK_MEMBERS. We will have a check before we attempt to kick members to see
-            // if the logged in account actually has the permission, but considering something could change after our
-            // check we should also take into account the possibility that we don't have permission anymore, thus Discord
-            // response with a permission failure!
-            //We will use the error consumer, the second parameter in queue!
 
-            //We only want to deal with message sent in a Guild.
-            if (message.isFromType(ChannelType.TEXT)) {
-                //If no users are provided, we can't kick anyone!
-                if (message.getMentionedUsers().isEmpty()) {
-                    channel.sendMessage("You must mention 1 or more Users to be kicked!").queue();
-                } else {
-                    Guild guild = event.getGuild();
-                    Member selfMember = guild.getSelfMember();  //This is the currently logged in account's Member object.
-                    // Very similar to JDA#getSelfUser()!
+            } else if (messageContent.equals("!uptime")) {
+                uptime(channel);
+            } else if (messageContent.equals("!roll")) {
+                //In this case, we have an example showing how to use the Success consumer for a RestAction. The Success consumer
+                // will provide you with the object that results after you execute your RestAction. As a note, not all RestActions
+                // have object returns and will instead have Void returns. You can still use the success consumer to determine when
+                // the action has been completed!
 
-                    //Now, we the the logged in account doesn't have permission to kick members.. well.. we can't kick!
-                    if (!selfMember.hasPermission(Permission.KICK_MEMBERS)) {
-                        channel.sendMessage("Sorry! I don't have permission to kick members in this Guild!").queue();
-                        return; //We jump out of the method instead of using cascading if/else
+                Random rand = new Random();
+                int roll = rand.nextInt(6) + 1; //This results in 1 - 6 (instead of 0 - 5)
+                channel.sendMessage("Your roll: " + roll).queue(sentMessage ->  //This is called a lambda statement. If you don't know
+                {                                                               // what they are or how they work, try google!
+                    if (roll < 3) {
+                        channel.sendMessage("The role for messageId: " + sentMessage.getId() + " wasn't very good... Must be bad luck!\n").queue();
                     }
+                });
+            } else if (messageContent.startsWith("!kick"))   //Note, I used "startsWith, not equals.
+            {
+                //This is an admin command. That means that it requires specific permissions to use it, in this case
+                // it needs Permission.KICK_MEMBERS. We will have a check before we attempt to kick members to see
+                // if the logged in account actually has the permission, but considering something could change after our
+                // check we should also take into account the possibility that we don't have permission anymore, thus Discord
+                // response with a permission failure!
+                //We will use the error consumer, the second parameter in queue!
 
-                    //Loop over all mentioned users, kicking them one at a time. Mwauahahah!
-                    List<User> mentionedUsers = message.getMentionedUsers();
-                    for (User user : mentionedUsers) {
-                        Member member = guild.getMember(user);  //We get the member object for each mentioned user to kick them!
+                //We only want to deal with message sent in a Guild.
+                if (message.isFromType(ChannelType.TEXT)) {
+                    //If no users are provided, we can't kick anyone!
+                    if (message.getMentionedUsers().isEmpty()) {
+                        channel.sendMessage("You must mention 1 or more Users to be kicked!").queue();
+                    } else {
+                        Guild guild = event.getGuild();
+                        Member selfMember = guild.getSelfMember();  //This is the currently logged in account's Member object.
+                        // Very similar to JDA#getSelfUser()!
 
-                        //We need to make sure that we can interact with them. Interacting with a Member means you are higher
-                        // in the Role hierarchy than they are. Remember, NO ONE is above the Guild's Owner. (Guild#getOwner())
-                        if (!selfMember.canInteract(member)) {
-                            channel.sendMessage("Cannot kicked member: " + member.getEffectiveName() + ", they are higher " +
-                                    "in the hierachy than I am!").queue();
-                            continue;   //Continue to the next mentioned user to be kicked.
+                        //Now, we the the logged in account doesn't have permission to kick members.. well.. we can't kick!
+                        if (!selfMember.hasPermission(Permission.KICK_MEMBERS)) {
+                            channel.sendMessage("Sorry! I don't have permission to kick members in this Guild!").queue();
+                            return; //We jump out of the method instead of using cascading if/else
                         }
 
-                        //Remember, due to the fact that we're using queue we will never have to deal with RateLimits.
-                        // JDA will do it all for you so long as you are using queue!
-                        guild.getController().kick(member).queue(success -> channel.sendMessage("Kicked " + member.getEffectiveName() + "! Cya!").queue(), error -> {
-                            //The failure consumer provides a throwable. In this case we want to check for a PermissionException.
-                            if (error instanceof PermissionException) {
-                                PermissionException pe = (PermissionException) error;
-                                Permission missingPermission = pe.getPermission();  //If you want to know exactly what permission is missing, this is how.
-                                //Note: some PermissionExceptions have no permission provided, only an error message!
+                        //Loop over all mentioned users, kicking them one at a time. Mwauahahah!
+                        List<User> mentionedUsers = message.getMentionedUsers();
+                        for (User user : mentionedUsers) {
+                            Member member = guild.getMember(user);  //We get the member object for each mentioned user to kick them!
 
-                                channel.sendMessage("PermissionError kicking [" + member.getEffectiveName() + "]: " + error.getMessage()).queue();
-                            } else {
-                                channel.sendMessage("Unknown error while kicking [" + member.getEffectiveName() + "]: " + "<" + error.getClass().getSimpleName() + ">: " + error.getMessage()).queue();
+                            //We need to make sure that we can interact with them. Interacting with a Member means you are higher
+                            // in the Role hierarchy than they are. Remember, NO ONE is above the Guild's Owner. (Guild#getOwner())
+                            if (!selfMember.canInteract(member)) {
+                                channel.sendMessage("Cannot kicked member: " + member.getEffectiveName() + ", they are higher " +
+                                        "in the hierachy than I am!").queue();
+                                continue;   //Continue to the next mentioned user to be kicked.
                             }
-                        });
-                    }
-                }
-            } else {
-                channel.sendMessage("This is a Guild-Only command!").queue();
-            }
-        } else if (messageContent.contains("fact") && !message.getAuthor().isBot()) {
-            fact(channel, message);
-        } else if (messageContent.contains("!should")) {
-            should(channel, message);
-        } else if (messageContent.startsWith("@TythorBot")) {
-            try {
-                String chat = messageContent.split("@TythorBot ")[1];
-                System.out.println(chat);
 
-                CleverBotQuery cleverBotQuery = new CleverBotQuery("c4c6ef1eeefdfa203806506b4a2d63c0", chat);
-                cleverBotQuery.sendRequest();
-                chat = cleverBotQuery.getResponse();
-                sendMentionMessage(channel, message, chat);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+                            //Remember, due to the fact that we're using queue we will never have to deal with RateLimits.
+                            // JDA will do it all for you so long as you are using queue!
+                            guild.getController().kick(member).queue(success -> channel.sendMessage("Kicked " + member.getEffectiveName() + "! Cya!").queue(), error -> {
+                                //The failure consumer provides a throwable. In this case we want to check for a PermissionException.
+                                if (error instanceof PermissionException) {
+                                    PermissionException pe = (PermissionException) error;
+                                    Permission missingPermission = pe.getPermission();  //If you want to know exactly what permission is missing, this is how.
+                                    //Note: some PermissionExceptions have no permission provided, only an error message!
+
+                                    channel.sendMessage("PermissionError kicking [" + member.getEffectiveName() + "]: " + error.getMessage()).queue();
+                                } else {
+                                    channel.sendMessage("Unknown error while kicking [" + member.getEffectiveName() + "]: " + "<" + error.getClass().getSimpleName() + ">: " + error.getMessage()).queue();
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    channel.sendMessage("This is a Guild-Only command!").queue();
+                }
+            } else if (messageContent.contains("fact") && !message.getAuthor().isBot()) {
+                fact(channel, message);
+            } else if (messageContent.contains("!should")) {
+                should(channel, message);
+            } else if (messageContent.startsWith("@TythorBot")) {
+                try {
+                    String chat = messageContent.split("@TythorBot ")[1];
+                    System.out.println(chat);
+
+                    CleverBotQuery cleverBotQuery = new CleverBotQuery("c4c6ef1eeefdfa203806506b4a2d63c0", chat);
+                    cleverBotQuery.sendRequest();
+                    chat = cleverBotQuery.getResponse();
+                    sendMentionMessage(channel, message, chat);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             /*try {
                 MessageHistory messageHistory = new MessageHistory(channel);
                 Message lastMessage = messageHistory.retrievePast(1).block().get(0);
@@ -245,6 +246,7 @@ public class MessageListener extends ListenerAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }*/
+            }
         }
     }
 
