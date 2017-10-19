@@ -110,7 +110,13 @@ public class MessageListener extends ListenerAdapter {
         //Remember, in all of these .equals checks it is actually comparing
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
-        if (messageContent.equals("!ping")) {
+        if(messageContent.equals("!help")) {
+            channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
+                    "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
+                    "I am also a chatbot, so start a message with @TythorBot, and I will respond.\n" +
+                    "I was made by <@159201526114549760>, so message any complaints to him.").queue();
+        }
+        else if (messageContent.equals("!ping")) {
             long start = System.currentTimeMillis();
             try {
                 Message ping = channel.sendMessage(":ping_pong:`...`").complete();
