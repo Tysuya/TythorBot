@@ -111,7 +111,7 @@ public class MessageListener extends ListenerAdapter {
         // message.getContent().equals, which is comparing a string to a string.
         // If you did message.equals() it will fail because you would be comparing a Message to a String!
         if(!message.getAuthor().isBot()) {
-            if (messageContent.equals("!help")) {
+            if (messageContent.equals("tb!help")) {
                 channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
                         "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
                         "I am also a chatbot, so start a message with <@270110213523111936>, and I will respond.\n" +
