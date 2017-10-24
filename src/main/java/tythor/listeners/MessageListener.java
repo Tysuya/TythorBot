@@ -114,7 +114,7 @@ public class MessageListener extends ListenerAdapter {
             if (messageContent.equals("tb!help")) {
                 channel.sendMessage("Hello, I am TythorBot. My current commands are as follows:" +
                         "```!fact\n!kick\n!ping\n!roll\n!should\n!uptime```" +
-                        "I am also a chatbot, so start a message with <@270110213523111936>, and I will respond.\n" +
+                        "I am also a chatbot, so start a message with <@270110213523111936> and I will respond.\n" +
                         "I am in active development, so some things may break. Message any bugs to my creator, <@159201526114549760>.").queue();
 
             } else if (messageContent.equals("!ping")) {
